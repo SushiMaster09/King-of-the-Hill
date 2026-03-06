@@ -441,7 +441,7 @@ MonoBehaviour:
   innerSize: 0.95
   outerSize: 1
   height: 0.2
-  isFlatTopped: 0
+  isFlatTopped: 1
   material: {fileID: 2100000, guid: cc41325ab1e6d914cb0061d10803d5d8, type: 2}
 --- !u!4 &1357723753
 Transform:
