@@ -14,6 +14,10 @@ public class HexMapEditor : MonoBehaviour
 	private bool applyColor;
     private bool applyElevation = true;
 
+    private bool isDrag;
+    private HexDirection dragDirection;
+    private HexCell previousCell;
+
     private enum OptionalToggle
     { 
         Ignore, Yes, No
@@ -32,7 +36,11 @@ public class HexMapEditor : MonoBehaviour
 		{
 			HandleInput();
 		}
-	}
+        else
+        {
+            previousCell = null;
+        }
+    }
 
 	private void HandleInput() 
 	{
@@ -41,11 +49,17 @@ public class HexMapEditor : MonoBehaviour
 
 		if (Physics.Raycast(inputRay, out hit)) 
 		{
-            EditCell(hexGrid.GetCell(hit.point));
-		}
-	}
+            HexCell currentCell = hexGrid.GetCell(hit.point);
+            EditCells(currentCell);
+            previousCell = currentCell;
+        }
+        else
+        {
+            previousCell = null;
+        }
+    }
 
-    private void EditCell(HexCell cell)
+    private void EditCells(HexCell cell)
     {
         if (applyColor)
         {
