@@ -11,6 +11,16 @@ public class HexMapEditor : MonoBehaviour
 
 	private int activeElevation;
 
+	private bool applyColor;
+    private bool applyElevation = true;
+
+    private enum OptionalToggle
+    { 
+        Ignore, Yes, No
+    }
+
+    private OptionalToggle riverMode;
+
     private void Awake() 
 	{
 		SelectColor(0);
@@ -37,18 +47,34 @@ public class HexMapEditor : MonoBehaviour
 
     private void EditCell(HexCell cell)
     {
-        cell.color = activeColor;
-		cell.Elevation = activeElevation;
-        hexGrid.Refresh();
+        if (applyColor)
+        {
+            cell.Color = activeColor;
+        }
+
+        if (applyElevation)
+        {
+            cell.Elevation = activeElevation;
+        }
     }
 
     public void SelectColor(int index) 
 	{
-		activeColor = colors[index];
-	}
+        applyColor = index >= 0;
+
+        if (applyColor)
+        {
+            activeColor = colors[index];
+        }
+    }
 
     public void SetElevation(float elevation)
     {
         activeElevation = (int)elevation;
+    }
+
+    public void SetApplyElevation(bool toggle)
+    {
+        applyElevation = toggle;
     }
 }
