@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 3149125163385907225}
   - component: {fileID: 1995143188211908720}
   m_Layer: 0
-  m_Name: Hex Mesh
+  m_Name: Terrain
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -232,3 +232,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 861480551a19e1e42a1b55fffa17c6e1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::HexGridChunk
+  terrain: {fileID: 1995143188211908720}

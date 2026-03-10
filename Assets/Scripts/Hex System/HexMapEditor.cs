@@ -50,7 +50,17 @@ public class HexMapEditor : MonoBehaviour
 		if (Physics.Raycast(inputRay, out hit)) 
 		{
             HexCell currentCell = hexGrid.GetCell(hit.point);
-            EditCells(currentCell);
+
+            if (previousCell && previousCell != currentCell)
+            {
+                ValidateDrag(currentCell);
+            }
+            else
+            {
+                isDrag = false;
+            }
+
+            EditCell(currentCell);
             previousCell = currentCell;
         }
         else
@@ -59,16 +69,47 @@ public class HexMapEditor : MonoBehaviour
         }
     }
 
-    private void EditCells(HexCell cell)
+    private void ValidateDrag(HexCell currentCell)
     {
-        if (applyColor)
+        for (dragDirection = HexDirection.NE; dragDirection <= HexDirection.NW; dragDirection++)
         {
-            cell.Color = activeColor;
+            if (previousCell.GetNeighbor(dragDirection) == currentCell)
+            {
+                isDrag = true;
+                return;
+            }
         }
 
-        if (applyElevation)
+        isDrag = false;
+    }
+
+    private void EditCell(HexCell cell)
+    {
+        if (cell)
         {
-            cell.Elevation = activeElevation;
+            if (applyColor)
+            {
+                cell.Color = activeColor;
+            }
+
+            if (applyElevation)
+            {
+                cell.Elevation = activeElevation;
+            }
+
+            if (riverMode == OptionalToggle.No)
+            {
+                cell.RemoveRiver();
+            }
+            else if (isDrag && riverMode == OptionalToggle.Yes)
+            {
+                HexCell otherCell = cell.GetNeighbor(dragDirection.Opposite());
+
+                if (otherCell)
+                {
+                    otherCell.SetOutgoingRiver(dragDirection);
+                }
+            }
         }
     }
 
@@ -90,5 +131,10 @@ public class HexMapEditor : MonoBehaviour
     public void SetApplyElevation(bool toggle)
     {
         applyElevation = toggle;
+    }
+
+    public void SetRiverMode(int mode)
+    {
+        riverMode = (OptionalToggle)mode;
     }
 }
