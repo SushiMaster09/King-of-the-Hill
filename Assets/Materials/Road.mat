@@ -7,8 +7,8 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: River
-  m_Shader: {fileID: -6465566751694194690, guid: a199a65b911b3f94e9866837ae512f41, type: 3}
+  m_Name: Road
+  m_Shader: {fileID: -6465566751694194690, guid: 9b3aecb1a4668934b9177db8118fde4c, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords:
@@ -36,10 +36,6 @@ Material:
     m_TexEnvs:
     - _Noise:
         m_Texture: {fileID: 2800000, guid: 38701cdeb1fb9427cbb585f917aa59cb, type: 3}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _Texture2DAsset_f17c507d38254a27920c0d582e817233_Out_0_Texture2D:
-        m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - unity_Lightmaps:
@@ -107,18 +103,19 @@ Material:
     - _TransparentWritingMotionVec: 0
     - _TransparentZWrite: 0
     - _UseShadowThreshold: 0
+    - _View_Offset: 0.01
     - _ZTestDepthEqualForOpaque: 4
     - _ZTestGBuffer: 4
     - _ZTestTransparent: 4
     - _ZWrite: 0
     m_Colors:
-    - _Color: {r: 0, g: 0.12549013, b: 1, a: 0.12156863}
+    - _Color: {r: 0.7843138, g: 0.145098, b: 0.082352914, a: 1}
     - _DoubleSidedConstants: {r: 1, g: 1, b: -1, a: 0}
     - _EmissionColor: {r: 1, g: 1, b: 1, a: 1}
-    - _Specular: {r: 0.5597484, g: 0.5597484, b: 0.5597484, a: 1}
+    - _Specular: {r: 0.16037738, g: 0.16037738, b: 0.16037738, a: 1}
   m_BuildTextureStacks: []
   m_AllowLocking: 1
---- !u!114 &5755203434588294421
+--- !u!114 &2981465762534348129
 MonoBehaviour:
   m_ObjectHideFlags: 11
   m_CorrespondingSourceObject: {fileID: 0}

@@ -3,23 +3,27 @@ using System.Collections.Generic;
 using System;
 
 [RequireComponent(typeof(MeshFilter), typeof(MeshRenderer))]
-public class HexMesh : MonoBehaviour {
-
+public class HexMesh : MonoBehaviour 
+{
 	public bool useCollider, useColors, useUVCoordinates;
 
-	[NonSerialized] List<Vector3> vertices;
-	[NonSerialized] List<Color> colors;
-	[NonSerialized] List<Vector2> uvs;
-	[NonSerialized] List<int> triangles;
+	[NonSerialized] private List<Vector3> vertices;
+	[NonSerialized] private List<Color> colors;
+	[NonSerialized] private List<Vector2> uvs;
+	[NonSerialized] private List<int> triangles;
 
-	Mesh hexMesh;
-	MeshCollider meshCollider;
+	private Mesh hexMesh;
+	private MeshCollider meshCollider;
 
-	void Awake () {
+	void Awake () 
+	{
 		GetComponent<MeshFilter>().mesh = hexMesh = new Mesh();
-		if (useCollider) {
+
+		if (useCollider) 
+		{
 			meshCollider = gameObject.AddComponent<MeshCollider>();
 		}
+
 		hexMesh.name = "Hex Mesh";
 	}
 
