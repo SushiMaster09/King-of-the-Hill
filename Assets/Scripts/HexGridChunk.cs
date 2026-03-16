@@ -170,7 +170,7 @@ public class HexGridChunk : MonoBehaviour
 
         if (cell.HasRiverThroughEdge(direction))
         {
-            TriangulateEstuary(e1, e2);
+            TriangulateEstuary(e1, e2, cell.IncomingRiver == direction);
         }
         else
         {
@@ -194,7 +194,7 @@ public class HexGridChunk : MonoBehaviour
         }
     }
 
-	private void TriangulateEstuary(EdgeVertices e1, EdgeVertices e2)
+	private void TriangulateEstuary(EdgeVertices e1, EdgeVertices e2, bool incomingRiver)
     {
         waterShore.AddTriangle(e2.v1, e1.v2, e1.v1);
         waterShore.AddTriangle(e2.v5, e1.v5, e1.v4);
@@ -209,22 +209,35 @@ public class HexGridChunk : MonoBehaviour
         estuaries.AddTriangleUV(new Vector2(0f, 0f), new Vector2(1f, 1f), new Vector2(1f, 1f));
         estuaries.AddQuadUV(new Vector2(0f, 0f), new Vector2(0f, 0f), new Vector2(1f, 1f), new Vector2(0f, 1f));
 
-        estuaries.AddQuadUV2(new Vector2(1.5f, 1f), new Vector2(0.7f, 1.15f), new Vector2(1f, 0.8f), new Vector2(0.5f, 1.1f));
-        estuaries.AddTriangleUV2(new Vector2(0.5f, 1.1f), new Vector2(1f, 0.8f), new Vector2(0f, 0.8f));
-        estuaries.AddQuadUV2(new Vector2(0.5f, 1.1f), new Vector2(0.3f, 1.15f), new Vector2(0f, 0.8f), new Vector2(-0.5f, 1f));
+        if (incomingRiver)
+        {
+            estuaries.AddQuadUV2(new Vector2(1.5f, 1f), new Vector2(0.7f, 1.15f), new Vector2(1f, 0.8f), new Vector2(0.5f, 1.1f));
+            estuaries.AddTriangleUV2(new Vector2(0.5f, 1.1f), new Vector2(1f, 0.8f), new Vector2(0f, 0.8f));
+            estuaries.AddQuadUV2(new Vector2(0.5f, 1.1f), new Vector2(0.3f, 1.15f), new Vector2(0f, 0.8f), new Vector2(-0.5f, 1f));
+        }
+        else
+        {
+            estuaries.AddQuadUV2(new Vector2(-0.5f, -0.2f), new Vector2(0.3f, -0.35f), new Vector2(0f, 0f), new Vector2(0.5f, -0.3f));
+            estuaries.AddTriangleUV2(new Vector2(0.5f, -0.3f), new Vector2(0f, 0f), new Vector2(1f, 0f));
+            estuaries.AddQuadUV2(new Vector2(0.5f, -0.3f), new Vector2(0.7f, -0.35f), new Vector2(1f, 0f), new Vector2(1.5f, -0.2f));
+        }
     }
 
     private void TriangulateWaterfallInWater(Vector3 v1, Vector3 v2, Vector3 v3, Vector3 v4, float y1, float y2, float waterY)
     {
         v1.y = v2.y = y1;
         v3.y = v4.y = y2;
+
         v1 = HexMetrics.Perturb(v1);
         v2 = HexMetrics.Perturb(v2);
         v3 = HexMetrics.Perturb(v3);
         v4 = HexMetrics.Perturb(v4);
+
         float t = (waterY - y2) / (y1 - y2);
+
         v3 = Vector3.Lerp(v3, v1, t);
         v4 = Vector3.Lerp(v4, v2, t);
+
         rivers.AddQuadUnperturbed(v1, v2, v3, v4);
         rivers.AddQuadUV(0f, 1f, 0.8f, 1f);
     }
