@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 997738226073430138}
   - component: {fileID: 7418775183401693590}
   m_Layer: 0
-  m_Name: Urban Medium 1
+  m_Name: Plant High 2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -28,7 +28,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1.5, y: 2, z: 1.5}
+  m_LocalScale: {x: 1.5, y: 3, z: 1.5}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -66,7 +66,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: d1ab418a36ed07c40b530e7ab825633e, type: 2}
+  - {fileID: 2100000, guid: e5d2cbd12b1ebf74dabfffca3be55ff0, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

@@ -43,7 +43,10 @@ public static class HexMetrics
 
 	public const float hashGridScale = 0.25f;
 
-	static HexHash[] hashGrid;
+    public const float wallHeight = 3f;
+    public const float wallThickness = 0.75f;
+
+    private static HexHash[] hashGrid;
 
 	private static Vector3[] corners = 
 	{

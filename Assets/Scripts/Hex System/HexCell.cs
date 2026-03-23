@@ -180,7 +180,8 @@ public class HexCell : MonoBehaviour
 		}
 	}
 
-	public float RiverSurfaceY {
+	public float RiverSurfaceY 
+	{
 		get 
 		{
 			return (elevation + HexMetrics.waterElevationOffset) * HexMetrics.elevationStep;
@@ -203,7 +204,8 @@ public class HexCell : MonoBehaviour
 		}
 		set 
 		{
-			if (urbanLevel != value) {
+			if (urbanLevel != value) 
+			{
 				urbanLevel = value;
 				RefreshSelfOnly();
 			}
@@ -242,6 +244,22 @@ public class HexCell : MonoBehaviour
         }
     }
 
+    public bool Walled
+    {
+        get
+        {
+            return walled;
+        }
+        set
+        {
+            if (walled != value)
+            {
+                walled = value;
+                Refresh();
+            }
+        }
+    }
+
     private Color color;
 
 	private int elevation = int.MinValue;
@@ -249,7 +267,9 @@ public class HexCell : MonoBehaviour
 
     private int urbanLevel, farmLevel, plantLevel;
 
-	private bool hasIncomingRiver, hasOutgoingRiver;
+    private bool walled;
+
+    private bool hasIncomingRiver, hasOutgoingRiver;
     private HexDirection incomingRiver, outgoingRiver;
 
 	[SerializeField] private HexCell[] neighbors;
