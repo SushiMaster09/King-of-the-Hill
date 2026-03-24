@@ -8,23 +8,17 @@ public class HexCell : MonoBehaviour
 
 	public HexGridChunk chunk;
 
-	public Color Color 
+	private int specialIndex;
+
+	/*
+    public Color Color 
 	{
 		get 
 		{
-			return color;
-		}
-		set 
-		{
-			if (color == value) 
-			{
-				return;
-			}
-
-			color = value;
-			Refresh();
-		}
+			return HexMetrics.colors[terrainTypeIndex];
+        }
 	}
+	*/
 
 	public int Elevation 
 	{
@@ -260,7 +254,48 @@ public class HexCell : MonoBehaviour
         }
     }
 
-    private Color color;
+    public int SpecialIndex
+    {
+        get
+        {
+            return specialIndex;
+        }
+        set
+        {
+            if (specialIndex != value && !HasRiver)
+            {
+                specialIndex = value;
+                RemoveRoads();
+                RefreshSelfOnly();
+            }
+        }
+    }
+
+    public bool IsSpecial
+    {
+        get
+        {
+            return specialIndex > 0;
+        }
+    }
+
+    public int TerrainTypeIndex
+    {
+        get
+        {
+            return terrainTypeIndex;
+        }
+        set
+        {
+            if (terrainTypeIndex != value)
+            {
+                terrainTypeIndex = value;
+                Refresh();
+            }
+        }
+    }
+
+    private int terrainTypeIndex;
 
 	private int elevation = int.MinValue;
     private int waterLevel;
@@ -358,14 +393,17 @@ public class HexCell : MonoBehaviour
 		{
 			RemoveIncomingRiver();
 		}
+
 		hasOutgoingRiver = true;
 		outgoingRiver = direction;
+        specialIndex = 0;
 
-		neighbor.RemoveIncomingRiver();
+        neighbor.RemoveIncomingRiver();
 		neighbor.hasIncomingRiver = true;
 		neighbor.incomingRiver = direction.Opposite();
+        neighbor.specialIndex = 0;
 
-		SetRoad((int)direction, false);
+        SetRoad((int)direction, false);
 	}
 
 	public bool HasRoadThroughEdge (HexDirection direction) 
@@ -375,7 +413,7 @@ public class HexCell : MonoBehaviour
 
 	public void AddRoad (HexDirection direction) 
 	{
-		if (!roads[(int)direction] && !HasRiverThroughEdge(direction) && GetElevationDifference(direction) <= 1) 
+		if (!roads[(int)direction] && !IsSpecial && !GetNeighbor(direction).IsSpecial && !HasRiverThroughEdge(direction) && GetElevationDifference(direction) <= 1) 
 		{
 			SetRoad((int)direction, true);
 		}

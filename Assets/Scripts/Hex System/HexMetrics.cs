@@ -6,25 +6,20 @@ public static class HexMetrics
 	public const float innerToOuter = 1f / outerToInner;
 
 	public const float outerRadius = 10f;
-
 	public const float innerRadius = outerRadius * outerToInner;
 
 	public const float solidFactor = 0.8f;
-
 	public const float blendFactor = 1f - solidFactor;
 
 	public const float waterFactor = 0.6f;
-
 	public const float waterBlendFactor = 1f - waterFactor;
 
 	public const float elevationStep = 3f;
 
 	public const int terracesPerSlope = 2;
-
 	public const int terraceSteps = terracesPerSlope * 2 + 1;
 
 	public const float horizontalTerraceStepSize = 1f / terraceSteps;
-
 	public const float verticalTerraceStepSize = 1f / (terracesPerSlope + 1);
 
 	public const float cellPerturbStrength = 4f;
@@ -42,9 +37,16 @@ public static class HexMetrics
 	public const int hashGridSize = 256;
 	public const float hashGridScale = 0.25f;
 
-    public const float wallHeight = 3f;
+    public const float wallHeight = 4f;
     public const float wallThickness = 0.75f;
     public const float wallElevationOffset = verticalTerraceStepSize;
+    public const float wallYOffset = -1f;
+
+    public const float wallTowerThreshold = 0.5f;
+
+    public const float bridgeDesignLength = 7f;
+
+    //public static Color[] colors;
 
     private static HexHash[] hashGrid;
 
@@ -211,7 +213,7 @@ public static class HexMetrics
         near.x += (far.x - near.x) * 0.5f;
         near.z += (far.z - near.z) * 0.5f;
         float v = near.y < far.y ? wallElevationOffset : (1f - wallElevationOffset);
-        near.y += (far.y - near.y) * v;
+        near.y += (far.y - near.y) * v + wallYOffset;
         return near;
     }
 }

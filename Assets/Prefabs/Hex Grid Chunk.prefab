@@ -76,6 +76,9 @@ MonoBehaviour:
     - {fileID: 7218057681186342961, guid: a5f34c611c86da243b7d32f4a912622d, type: 3}
   walls: {fileID: 3207251155209123036}
   wallTower: {fileID: 7703968874301351462, guid: 3ba15bb197464834caccabc3b8169a32, type: 3}
+  bridge: {fileID: 9040926984241238978, guid: eafca4c604f8d7c43b7d9ba338f2a371, type: 3}
+  special:
+  - {fileID: 3479032095804822790, guid: ae20b200a7435e64e8b81a447d543ea9, type: 3}
 --- !u!1 &1000010636493760
 GameObject:
   m_ObjectHideFlags: 0
@@ -266,6 +269,7 @@ MonoBehaviour:
   useColors: 0
   useUVCoordinates: 0
   useUV2Coordinates: 0
+  useTerrainTypes: 0
 --- !u!1 &1000011342308370
 GameObject:
   m_ObjectHideFlags: 0
@@ -373,6 +377,7 @@ MonoBehaviour:
   useColors: 0
   useUVCoordinates: 1
   useUV2Coordinates: 0
+  useTerrainTypes: 0
 --- !u!1 &1000012603289920
 GameObject:
   m_ObjectHideFlags: 0
@@ -480,6 +485,7 @@ MonoBehaviour:
   useColors: 0
   useUVCoordinates: 1
   useUV2Coordinates: 1
+  useTerrainTypes: 0
 --- !u!1 &1000013543062704
 GameObject:
   m_ObjectHideFlags: 0
@@ -587,6 +593,7 @@ MonoBehaviour:
   useColors: 0
   useUVCoordinates: 1
   useUV2Coordinates: 0
+  useTerrainTypes: 0
 --- !u!1 &1000013614047726
 GameObject:
   m_ObjectHideFlags: 0
@@ -654,7 +661,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 04edc8d2e1423c64da45366973ce5862, type: 2}
+  - {fileID: 2100000, guid: 48138f7285eb5a745bbfe17d89a0b062, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -694,6 +701,7 @@ MonoBehaviour:
   useColors: 1
   useUVCoordinates: 0
   useUV2Coordinates: 0
+  useTerrainTypes: 1
 --- !u!1 &1000013758644280
 GameObject:
   m_ObjectHideFlags: 0
@@ -801,6 +809,7 @@ MonoBehaviour:
   useColors: 0
   useUVCoordinates: 1
   useUV2Coordinates: 0
+  useTerrainTypes: 0
 --- !u!1 &1000014151754808
 GameObject:
   m_ObjectHideFlags: 0
@@ -968,3 +977,4 @@ MonoBehaviour:
   useColors: 0
   useUVCoordinates: 0
   useUV2Coordinates: 0
+  useTerrainTypes: 0
