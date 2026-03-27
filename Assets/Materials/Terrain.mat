@@ -48,11 +48,11 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - _Terrain_Textures:
-        m_Texture: {fileID: 18700000, guid: fb3f09af873464c4ba5b4f20cd576fbc, type: 2}
+        m_Texture: {fileID: 18700000, guid: 3522b1fe30d78cd40aff07d6aa0bb532, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _Texture_Array:
-        m_Texture: {fileID: 18700000, guid: fb3f09af873464c4ba5b4f20cd576fbc, type: 2}
+        m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - unity_Lightmaps:
@@ -74,6 +74,7 @@ Material:
     - _AlphaDstBlend: 0
     - _AlphaSrcBlend: 1
     - _BlendMode: 0
+    - _ClearCoatEnabled: 1
     - _ConservativeDepthOffsetEnable: 0
     - _CullMode: 2
     - _CullModeForward: 2
