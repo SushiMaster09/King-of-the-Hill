@@ -1,11 +1,13 @@
 ﻿using UnityEngine;
+using System;
 
-[System.Serializable]
-public struct HexFeatureCollection {
-
+[Serializable]
+public struct HexFeatureCollection 
+{
 	public Transform[] prefabs;
 
-	public Transform Pick (float choice) {
+	public Transform Pick (float choice) 
+	{
 		return prefabs[(int)(choice * prefabs.Length)];
 	}
 }

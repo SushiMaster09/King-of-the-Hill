@@ -2767,7 +2767,7 @@
     "m_RefNameGeneratedByDisplayName": "Hex Map Edit Mode",
     "m_DefaultReferenceName": "_HEX_MAP_EDIT_MODE",
     "m_OverrideReferenceName": "",
-    "m_GeneratePropertyBlock": true,
+    "m_GeneratePropertyBlock": false,
     "m_UseCustomSlotLabel": false,
     "m_CustomSlotLabel": "",
     "m_DismissedVersion": 0,
@@ -2851,7 +2851,7 @@
     "m_CustomColors": {
         "m_SerializableColors": []
     },
-    "m_Space": 2,
+    "m_Space": 0,
     "m_PositionSource": 0
 }
 

@@ -1,48 +1,54 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 
-public class HexGridChunk : MonoBehaviour {
-
+public class HexGridChunk : MonoBehaviour 
+{
 	public HexMesh terrain, rivers, roads, water, waterShore, estuaries;
 
 	public HexFeatureManager features;
 
-	HexCell[] cells;
+	private HexCell[] cells;
 
-	Canvas gridCanvas;
+	private Canvas gridCanvas;
 
-	static Color color1 = new Color(1f, 0f, 0f);
-	static Color color2 = new Color(0f, 1f, 0f);
-	static Color color3 = new Color(0f, 0f, 1f);
+    private static Color color1 = new Color(1f, 0f, 0f);
+    private static Color color2 = new Color(0f, 1f, 0f);
+	private static Color color3 = new Color(0f, 0f, 1f);
 
-	void Awake () {
+    private void Awake () 
+	{
 		gridCanvas = GetComponentInChildren<Canvas>();
 
 		cells = new HexCell[HexMetrics.chunkSizeX * HexMetrics.chunkSizeZ];
-		ShowUI(false);
+		//ShowUI(false);
 	}
 
-	public void AddCell (int index, HexCell cell) {
+	public void AddCell (int index, HexCell cell) 
+	{
 		cells[index] = cell;
 		cell.chunk = this;
 		cell.transform.SetParent(transform, false);
 		cell.uiRect.SetParent(gridCanvas.transform, false);
 	}
 
-	public void Refresh () {
+	public void Refresh () 
+	{
 		enabled = true;
 	}
 
-	public void ShowUI (bool visible) {
+	public void ShowUI (bool visible) 
+	{
 		gridCanvas.gameObject.SetActive(visible);
 	}
 
-	void LateUpdate () {
+	private void LateUpdate () 
+	{
 		Triangulate();
 		enabled = false;
 	}
 
-	public void Triangulate () {
+	public void Triangulate () 
+	{
 		terrain.Clear();
 		rivers.Clear();
 		roads.Clear();
@@ -50,9 +56,11 @@ public class HexGridChunk : MonoBehaviour {
 		waterShore.Clear();
 		estuaries.Clear();
 		features.Clear();
-		for (int i = 0; i < cells.Length; i++) {
+		for (int i = 0; i < cells.Length; i++) 
+		{
 			Triangulate(cells[i]);
 		}
+
 		terrain.Apply();
 		rivers.Apply();
 		roads.Apply();
@@ -62,68 +70,81 @@ public class HexGridChunk : MonoBehaviour {
 		features.Apply();
 	}
 
-	void Triangulate (HexCell cell) {
-		for (HexDirection d = HexDirection.NE; d <= HexDirection.NW; d++) {
+    private void Triangulate (HexCell cell) 
+	{
+		for (HexDirection d = HexDirection.NE; d <= HexDirection.NW; d++) 
+		{
 			Triangulate(d, cell);
 		}
-		if (!cell.IsUnderwater) {
-			if (!cell.HasRiver && !cell.HasRoads) {
+		if (!cell.IsUnderwater) 
+		{
+			if (!cell.HasRiver && !cell.HasRoads) 
+			{
 				features.AddFeature(cell, cell.Position);
 			}
-			if (cell.IsSpecial) {
+			if (cell.IsSpecial) 
+			{
 				features.AddSpecialFeature(cell, cell.Position);
 			}
 		}
 	}
 
-	void Triangulate (HexDirection direction, HexCell cell) {
+    private void Triangulate (HexDirection direction, HexCell cell) 
+	{
 		Vector3 center = cell.Position;
-		EdgeVertices e = new EdgeVertices(
-			center + HexMetrics.GetFirstSolidCorner(direction),
-			center + HexMetrics.GetSecondSolidCorner(direction)
-		);
+		EdgeVertices e = new EdgeVertices(center + HexMetrics.GetFirstSolidCorner(direction), center + HexMetrics.GetSecondSolidCorner(direction));
 
-		if (cell.HasRiver) {
-			if (cell.HasRiverThroughEdge(direction)) {
+		if (cell.HasRiver) 
+		{
+			if (cell.HasRiverThroughEdge(direction)) 
+			{
 				e.v3.y = cell.StreamBedY;
-				if (cell.HasRiverBeginOrEnd) {
+				if (cell.HasRiverBeginOrEnd) 
+				{
 					TriangulateWithRiverBeginOrEnd(direction, cell, center, e);
 				}
-				else {
+				else 
+				{
 					TriangulateWithRiver(direction, cell, center, e);
 				}
 			}
-			else {
+			else 
+			{
 				TriangulateAdjacentToRiver(direction, cell, center, e);
 			}
 		}
-		else {
+		else 
+		{
 			TriangulateWithoutRiver(direction, cell, center, e);
 
-			if (!cell.IsUnderwater && !cell.HasRoadThroughEdge(direction)) {
+			if (!cell.IsUnderwater && !cell.HasRoadThroughEdge(direction)) 
+			{
 				features.AddFeature(cell, (center + e.v1 + e.v5) * (1f / 3f));
 			}
 		}
 
-		if (direction <= HexDirection.SE) {
+		if (direction <= HexDirection.SE)
+		{
 			TriangulateConnection(direction, cell, e);
 		}
 
-		if (cell.IsUnderwater) {
+		if (cell.IsUnderwater)
+		{
 			TriangulateWater(direction, cell, center);
 		}
 	}
 
-	void TriangulateWater (
-		HexDirection direction, HexCell cell, Vector3 center
-	) {
+    private void TriangulateWater (HexDirection direction, HexCell cell, Vector3 center) 
+	{
 		center.y = cell.WaterSurfaceY;
 
 		HexCell neighbor = cell.GetNeighbor(direction);
-		if (neighbor != null && !neighbor.IsUnderwater) {
+		if (neighbor != null && !neighbor.IsUnderwater) 
+		{
 			TriangulateWaterShore(direction, cell, neighbor, center);
 		}
-		else {
+		else 
+		{
 			TriangulateOpenWater(direction, cell, neighbor, center);
 		}
 	}
