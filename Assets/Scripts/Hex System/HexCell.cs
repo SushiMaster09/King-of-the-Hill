@@ -1,6 +1,6 @@
-﻿using UnityEngine;
+﻿using System.IO;
+using UnityEngine;
 using UnityEngine.UI;
-using System.IO;
 
 public class HexCell : MonoBehaviour 
 {
@@ -271,8 +271,8 @@ public class HexCell : MonoBehaviour
 			if (terrainTypeIndex != value)
 			{
 				terrainTypeIndex = value;
-				Refresh();
-			}
+                ShaderData.RefreshTerrain(this);
+            }
 		}
 	}
 
@@ -288,7 +288,15 @@ public class HexCell : MonoBehaviour
 		}
 	}
 
-	public HexCell PathFrom { get; set; }
+    public bool IsVisible
+    {
+        get
+        {
+            return visibility > 0;
+        }
+    }
+
+    public HexCell PathFrom { get; set; }
 
 	public int SearchHeuristic { get; set; }
 
@@ -306,6 +314,10 @@ public class HexCell : MonoBehaviour
 
     public HexUnit Unit { get; set; }
 
+    public HexCellShaderData ShaderData { get; set; }
+
+    public int Index { get; set; }
+
     private int terrainTypeIndex;
 
     private int elevation = int.MinValue;
@@ -318,6 +330,8 @@ public class HexCell : MonoBehaviour
     private int distance;
 
     private bool walled;
+
+	private int visibility;
 
     private bool hasIncomingRiver, hasOutgoingRiver;
     private HexDirection incomingRiver, outgoingRiver;
@@ -559,7 +573,8 @@ public class HexCell : MonoBehaviour
 	public void Load (BinaryReader reader) 
 	{
 		terrainTypeIndex = reader.ReadByte();
-		elevation = reader.ReadByte();
+        ShaderData.RefreshTerrain(this);
+        elevation = reader.ReadByte();
 		RefreshPosition();
 		waterLevel = reader.ReadByte();
 		urbanLevel = reader.ReadByte();
@@ -615,4 +630,22 @@ public class HexCell : MonoBehaviour
 		highlight.color = color;
 		highlight.enabled = true;
 	}
+
+	public void IncreaseVisibility () 
+	{
+		visibility += 1;
+        if (visibility == 1)
+        {
+            ShaderData.RefreshVisibility(this);
+        }
+    }
+
+	public void DecreaseVisibility () 
+	{
+		visibility -= 1;
+        if (visibility == 0)
+        {
+            ShaderData.RefreshVisibility(this);
+        }
+    }
 }

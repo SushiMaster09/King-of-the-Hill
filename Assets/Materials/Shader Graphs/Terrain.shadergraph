@@ -3532,7 +3532,7 @@
     "m_RefNameGeneratedByDisplayName": "Show Grid",
     "m_DefaultReferenceName": "_SHOW_GRID",
     "m_OverrideReferenceName": "GRID_ON",
-    "m_GeneratePropertyBlock": true,
+    "m_GeneratePropertyBlock": false,
     "m_UseCustomSlotLabel": false,
     "m_CustomSlotLabel": "",
     "m_DismissedVersion": 0,
