@@ -318,6 +318,8 @@ public class HexCell : MonoBehaviour
 
     public int Index { get; set; }
 
+    public bool IsExplored { get; private set; }
+
     private int terrainTypeIndex;
 
     private int elevation = int.MinValue;
@@ -636,6 +638,7 @@ public class HexCell : MonoBehaviour
 		visibility += 1;
         if (visibility == 1)
         {
+            IsExplored = true;
             ShaderData.RefreshVisibility(this);
         }
     }
