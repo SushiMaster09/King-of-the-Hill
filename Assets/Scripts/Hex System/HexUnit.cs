@@ -45,6 +45,22 @@ public class HexUnit : MonoBehaviour
         }
     }
 
+    public int Speed
+    {
+        get
+        {
+            return 24;
+        }
+    }
+
+    public int VisionRange
+    {
+        get
+        {
+            return 3;
+        }
+    }
+
     private float orientation;
 
     private HexCell location, currentTravelLocation;
@@ -74,7 +90,7 @@ public class HexUnit : MonoBehaviour
 
     public bool IsValidDestination(HexCell cell)
     {
-        return !cell.IsUnderwater && !cell.Unit;
+        return cell.IsExplored && !cell.IsUnderwater && !cell.Unit;
     }
 
     public void Die ()
@@ -96,6 +112,32 @@ public class HexUnit : MonoBehaviour
         pathToTravel = path;
         StopAllCoroutines();
         StartCoroutine(TravelPath());
+    }
+
+    public int GetMoveCost(HexCell fromCell, HexCell toCell, HexDirection direction)
+    {
+        HexEdgeType edgeType = fromCell.GetEdgeType(toCell);
+        if (edgeType == HexEdgeType.Cliff)
+        {
+            return -1;
+        }
+
+        int moveCost;
+        if (fromCell.HasRoadThroughEdge(direction))
+        {
+            moveCost = 1;
+        }
+        else if (fromCell.Walled != toCell.Walled)
+        {
+            return -1;
+        }
+        else
+        {
+            moveCost = edgeType == HexEdgeType.Flat ? 5 : 10;
+            moveCost += toCell.UrbanLevel + toCell.FarmLevel + toCell.PlantLevel;
+        }
+
+        return moveCost;
     }
 
     private IEnumerator TravelPath()
@@ -120,6 +162,7 @@ public class HexUnit : MonoBehaviour
                 transform.localRotation = Quaternion.LookRotation(d);
                 yield return null;
             }
+
             Grid.DecreaseVisibility(currentTravelLocation ? currentTravelLocation : pathToTravel[i], visionRange);
             t -= 1f;
         }

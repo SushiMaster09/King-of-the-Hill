@@ -106,7 +106,7 @@ Material:
     - _ZWrite: 1
     m_Colors:
     - _Background: {r: 0.40784317, g: 0.3803922, b: 0.35686275, a: 1}
-    - _Base_Color: {r: 0.050980397, g: 0.4431373, b: 0, a: 1}
+    - _Base_Color: {r: 1, g: 0.029422663, b: 0, a: 1}
     - _DoubleSidedConstants: {r: 1, g: 1, b: -1, a: 0}
     - _EmissionColor: {r: 1, g: 1, b: 1, a: 1}
     - _Specular: {r: 0.20000002, g: 0.20000002, b: 0.20000002, a: 1}

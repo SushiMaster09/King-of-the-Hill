@@ -56,22 +56,22 @@ public class HexGameUI : MonoBehaviour
 		}
 	}
 
-	private void DoPathfinding () 
-	{
-		if (UpdateCurrentCell()) 
-		{
-			if (currentCell && selectedUnit.IsValidDestination(currentCell)) 
-			{
-				grid.FindPath(selectedUnit.Location, currentCell, 24);
-			}
-			else 
-			{
-				grid.ClearPath();
-			}
-		}
-	}
+	private void DoPathfinding()
+    {
+        if (UpdateCurrentCell())
+        {
+            if (currentCell && selectedUnit.IsValidDestination(currentCell))
+            {
+                grid.FindPath(selectedUnit.Location, currentCell, selectedUnit);
+            }
+            else
+            {
+                grid.ClearPath();
+            }
+        }
+    }
 
-	private void DoMove () 
+    private void DoMove () 
 	{
 		if (grid.HasPath) 
 		{

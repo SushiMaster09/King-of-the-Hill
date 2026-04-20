@@ -23,8 +23,14 @@ public class HexCell : MonoBehaviour
 				return;
 			}
 
-			elevation = value;
-			RefreshPosition();
+            int originalViewElevation = ViewElevation;
+            elevation = value;
+            if (ViewElevation != originalViewElevation)
+            {
+                ShaderData.ViewElevationChanged();
+            }
+
+            RefreshPosition();
 			ValidateRivers();
 
 			for (int i = 0; i < roads.Length; i++) 
@@ -52,8 +58,14 @@ public class HexCell : MonoBehaviour
 				return;
 			}
 
-			waterLevel = value;
-			ValidateRivers();
+            int originalViewElevation = ViewElevation;
+            waterLevel = value;
+            if (ViewElevation != originalViewElevation)
+            {
+                ShaderData.ViewElevationChanged();
+            }
+
+            ValidateRivers();
 			Refresh();
 		}
 	}
@@ -292,7 +304,15 @@ public class HexCell : MonoBehaviour
     {
         get
         {
-            return visibility > 0;
+            return visibility > 0 && Explorable;
+        }
+    }
+
+    public int ViewElevation
+    {
+        get
+        {
+            return elevation >= waterLevel ? elevation : waterLevel;
         }
     }
 
@@ -318,7 +338,19 @@ public class HexCell : MonoBehaviour
 
     public int Index { get; set; }
 
-    public bool IsExplored { get; private set; }
+    public bool IsExplored
+    {
+        get
+        {
+            return explored && Explorable;
+        }
+        private set
+        {
+            explored = value;
+        }
+    }
+
+    public bool Explorable { get; set; }
 
     private int terrainTypeIndex;
 
@@ -334,6 +366,8 @@ public class HexCell : MonoBehaviour
     private bool walled;
 
 	private int visibility;
+
+	private bool explored;
 
     private bool hasIncomingRiver, hasOutgoingRiver;
     private HexDirection incomingRiver, outgoingRiver;
@@ -570,9 +604,10 @@ public class HexCell : MonoBehaviour
 		}
 
 		writer.Write((byte)roadFlags);
-	}
+        writer.Write(IsExplored);
+    }
 
-	public void Load (BinaryReader reader) 
+	public void Load (BinaryReader reader, int header) 
 	{
 		terrainTypeIndex = reader.ReadByte();
         ShaderData.RefreshTerrain(this);
@@ -612,7 +647,10 @@ public class HexCell : MonoBehaviour
 		{
 			roads[i] = (roadFlags & (1 << i)) != 0;
 		}
-	}
+
+		IsExplored = header >= 3 ? reader.ReadBoolean() : false;
+        ShaderData.RefreshVisibility(this);
+    }
 
 	public void SetLabel (string text) 
 	{
@@ -648,6 +686,15 @@ public class HexCell : MonoBehaviour
 		visibility -= 1;
         if (visibility == 0)
         {
+            ShaderData.RefreshVisibility(this);
+        }
+    }
+
+    public void ResetVisibility()
+    {
+        if (visibility > 0)
+        {
+            visibility = 0;
             ShaderData.RefreshVisibility(this);
         }
     }

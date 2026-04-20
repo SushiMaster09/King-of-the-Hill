@@ -280,17 +280,19 @@ public class HexGridChunk : MonoBehaviour
 		}
 	}
 
-	Vector2 GetRoadInterpolators (HexDirection direction, HexCell cell) {
+	private Vector2 GetRoadInterpolators (HexDirection direction, HexCell cell) 
+	{
 		Vector2 interpolators;
-		if (cell.HasRoadThroughEdge(direction)) {
+		if (cell.HasRoadThroughEdge(direction)) 
+		{
 			interpolators.x = interpolators.y = 0.5f;
 		}
-		else {
-			interpolators.x =
-				cell.HasRoadThroughEdge(direction.Previous()) ? 0.5f : 0.25f;
-			interpolators.y =
-				cell.HasRoadThroughEdge(direction.Next()) ? 0.5f : 0.25f;
+		else 
+		{
+			interpolators.x = cell.HasRoadThroughEdge(direction.Previous()) ? 0.5f : 0.25f;
+			interpolators.y = cell.HasRoadThroughEdge(direction.Next()) ? 0.5f : 0.25f;
 		}
+
 		return interpolators;
 	}
 

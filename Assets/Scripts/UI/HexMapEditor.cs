@@ -136,7 +136,8 @@ public class HexMapEditor : MonoBehaviour
 
     private void Awake () 
 	{
-		terrainMaterial.EnableKeyword("GRID_ON");
+        terrainMaterial.DisableKeyword("GRID_ON");
+        Shader.EnableKeyword("_HEX_MAP_EDIT_MODE");
         SetEditMode(true);
     }
 
