@@ -6602,7 +6602,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6f5f4d57e5c53d249893cd556c002a53, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CameraController
-  maxSpeed: 40
+  maxSpeed: 60
   acceleration: 20
   damping: 15
   stepSize: 1
@@ -6806,7 +6806,7 @@ Camera:
   m_ShutterSpeed: 0.005
   m_Aperture: 16
   m_FocusDistance: 10
-  m_FocalLength: 50
+  m_FocalLength: 44.78461
   m_BladeCount: 5
   m_Curvature: {x: 2, y: 11}
   m_BarrelClipping: 0.25
@@ -6820,8 +6820,8 @@ Camera:
     width: 1
     height: 1
   near clip plane: 0.01
-  far clip plane: 1000
-  field of view: 30
+  far clip plane: 2000
+  field of view: 30.000002
   orthographic: 0
   orthographic size: 30
   m_Depth: -1
@@ -6848,7 +6848,7 @@ Transform:
   m_GameObject: {fileID: 1057434418}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 250, z: -250}
+  m_LocalPosition: {x: 0, y: 100, z: -100}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

@@ -21,17 +21,12 @@ public class CameraController : MonoBehaviour
 
     [SerializeField] private float maxRotationSpeed = 1f;
 
-    [SerializeField, Range(0f, 0.1f)] private float edgeTolerance = 0.05f;
-    [SerializeField] private bool useScreenEdge = true;
-
     private Vector3 targetPosition;
 
     private float zoomHeight;
 
     private Vector3 horizontalVelocity;
     private Vector3 lastPosition;
-
-    private Vector3 startDrag;
 
     private void Awake()
     {
