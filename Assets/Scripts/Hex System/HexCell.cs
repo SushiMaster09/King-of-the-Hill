@@ -158,7 +158,6 @@ public class HexCell : MonoBehaviour
 		}
 	}
 
-
 	public float StreamBedY 
 	{
 		get 

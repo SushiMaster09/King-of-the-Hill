@@ -1,15 +1,25 @@
 ﻿using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.InputSystem;
 
 public class HexGameUI : MonoBehaviour 
 {
-	public HexGrid grid;
+	private InputAction selectAction, commandAction, positionAction;
+
+    public HexGrid grid;
 
 	private HexCell currentCell;
 
 	private HexUnit selectedUnit;
 
-	public void SetEditMode (bool toggle) 
+    private void Awake()
+    {
+        selectAction = InputSystem.actions.FindAction("Interact");
+        commandAction = InputSystem.actions.FindAction("Command");
+        positionAction = InputSystem.actions.FindAction("Position");
+    }
+
+    public void SetEditMode (bool toggle) 
 	{
 		enabled = !toggle;
 		grid.ShowUI(!toggle);
@@ -28,22 +38,22 @@ public class HexGameUI : MonoBehaviour
 	{
 		if (!EventSystem.current.IsPointerOverGameObject()) 
 		{
-			if (Input.GetMouseButtonDown(0)) 
-			{
-				DoSelection();
-			}
-			else if (selectedUnit) 
-			{
-				if (Input.GetMouseButtonDown(1)) 
-				{
-					DoMove();
-				}
-				else 
-				{
-					DoPathfinding();
-				}
-			}
-		}
+            if (selectAction.WasPerformedThisFrame())
+            {
+                DoSelection();
+            }
+            else if (selectedUnit)
+            {
+                if (commandAction.WasPerformedThisFrame())
+                {
+                    DoMove();
+                }
+                else
+                {
+                    DoPathfinding();
+                }
+            }
+        }
 	}
 
 	private void DoSelection () 
@@ -82,7 +92,7 @@ public class HexGameUI : MonoBehaviour
 
 	private bool UpdateCurrentCell () 
 	{
-		HexCell cell = grid.GetCell(Camera.main.ScreenPointToRay(Input.mousePosition));
+		HexCell cell = grid.GetCell(Camera.main.ScreenPointToRay(positionAction.ReadValue<Vector2>()));
 		if (cell != currentCell) 
 		{
 			currentCell = cell;

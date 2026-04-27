@@ -1,9 +1,13 @@
 ﻿using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.InputSystem;
 
 public class HexMapEditor : MonoBehaviour
 {
-	public HexGrid hexGrid;
+	private InputAction interactAction, positionAction;
+	private InputAction createUnitAction, destroyUnitAction;
+
+    public HexGrid hexGrid;
 
 	public Material terrainMaterial;
 
@@ -139,27 +143,30 @@ public class HexMapEditor : MonoBehaviour
         terrainMaterial.DisableKeyword("GRID_ON");
         Shader.EnableKeyword("_HEX_MAP_EDIT_MODE");
         SetEditMode(true);
+
+        interactAction = InputSystem.actions.FindAction("Interact");
+        positionAction = InputSystem.actions.FindAction("Position");
+        createUnitAction = InputSystem.actions.FindAction("CreateUnit");
+        destroyUnitAction = InputSystem.actions.FindAction("DestroyUnit");
     }
 
     private void Update ()
 	{
         if (!EventSystem.current.IsPointerOverGameObject())
         {
-            if (Input.GetMouseButton(0))
+            if (interactAction.inProgress)
             {
                 HandleInput();
                 return;
             }
-            if (Input.GetKeyDown(KeyCode.U))
+            if (destroyUnitAction.WasPerformedThisFrame())
             {
-                if (Input.GetKey(KeyCode.LeftShift))
-                {
-                    DestroyUnit();
-                }
-                else
-                {
-                    CreateUnit();
-                }
+                DestroyUnit();
+                return;
+            }
+            if (createUnitAction.WasPerformedThisFrame())
+            {
+                CreateUnit();
                 return;
             }
         }
@@ -289,7 +296,7 @@ public class HexMapEditor : MonoBehaviour
 
     private HexCell GetCellUnderCursor()
     {
-        return hexGrid.GetCell(Camera.main.ScreenPointToRay(Input.mousePosition));
+        return hexGrid.GetCell(Camera.main.ScreenPointToRay(positionAction.ReadValue<Vector2>()));
     }
 
 	private void CreateUnit()
