@@ -131,7 +131,7 @@ public class CameraController : MonoBehaviour
     {
         float value = -inputValue.ReadValue<Vector2>().y / 100f;
 
-        if (Mathf.Abs(value) > 0.1f)
+        if (Mathf.Abs(value) > 0.001f)
         {
             zoomHeight = cameraTransform.localPosition.y + value * stepSize;
             if (zoomHeight < minHeight)

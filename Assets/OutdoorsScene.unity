@@ -6602,17 +6602,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6f5f4d57e5c53d249893cd556c002a53, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CameraController
-  maxSpeed: 5
-  acceleration: 10
+  maxSpeed: 40
+  acceleration: 20
   damping: 15
-  stepSize: 2
+  stepSize: 1
   zoomDampening: 7.5
-  minHeight: 5
-  maxHeight: 50
-  zoomSpeed: 100
-  maxRotationSpeed: 1
+  minHeight: 50
+  maxHeight: 500
+  zoomSpeed: 3000
+  maxRotationSpeed: 0.1
   edgeTolerance: 0.05
-  useScreenEdge: 1
+  useScreenEdge: 0
 --- !u!1 &1057434418
 GameObject:
   m_ObjectHideFlags: 0
@@ -6848,7 +6848,7 @@ Transform:
   m_GameObject: {fileID: 1057434418}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 10, z: -10}
+  m_LocalPosition: {x: 0, y: 250, z: -250}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
